@@ -1,0 +1,39 @@
+{
+  "step": "ASUS-20A",
+  "status": "VERIFIED_IMPLEMENTATION_READY",
+  "project": "quantum-epistemic-reliability",
+  "dataset": "BreaKHis",
+  "backbone": {
+    "name": "ResNet-18",
+    "weights": "ImageNet pretrained",
+    "frozen": true,
+    "feature_dimension": 512
+  },
+  "pca": {
+    "input_dimension": 512,
+    "output_dimension": 6,
+    "fit_scope": "training_data_only",
+    "validation_refit": false,
+    "test_refit": false
+  },
+  "seed": 42,
+  "device": {
+    "type": "cuda:0",
+    "cuda_available": true,
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+  },
+  "data_integrity": {
+    "physical_images": 7909,
+    "frozen_folds": 5,
+    "new_split": false,
+    "source_modified": false
+  },
+  "execution_separation": {
+    "asus_breaKHis": "independent",
+    "kaggle_cbis_ddsm": "independent",
+    "historical_project": "reference_only"
+  },
+  "training": {
+    "performed": false
+  }
+}
