@@ -1,0 +1,192 @@
+{
+  "step": "ASUS-21",
+  "status": "INFRASTRUCTURE_VERIFIED",
+  "project": "quantum-epistemic-reliability",
+  "configuration": "configs\\ASUS_21_TRAINING_SPECIFICATION_v1.json",
+  "configuration_sha256": "68d9e3dc912a3a21df121c339efdb5fcfb745f8b6f81fa5998f74c8cab40fc35",
+  "cross_validation": {
+    "outer_folds": 5,
+    "seeds": [
+      42,
+      123,
+      2025
+    ],
+    "total_fold_seed_runs": 15
+  },
+  "training": {
+    "epochs": 30,
+    "batch_size": 32,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "selection_metric": "validation ROC-AUC",
+    "decision_threshold": 0.5,
+    "overwrite_previous_runs": false
+  },
+  "experimental_arms": [
+    "softmax",
+    "temperature_scaled",
+    "mc_dropout",
+    "deep_ensemble",
+    "deterministic_vqc",
+    "laplace_vqc",
+    "laplace_mlp"
+  ],
+  "planned_model_runs": 105,
+  "asus_20b_inputs_verified": 15,
+  "asus_20b_inputs": [
+    {
+      "fold": 1,
+      "seed": 42,
+      "feature_file": "features\\BreaKHis\\pca_6d\\fold_01\\seed_42\\BreaKHis_FOLD_FEATURES_v1.npz",
+      "feature_sha256": "d2486e25b00328e4116ea3348973967df1b43d840e4d90b3281c1f3b1381c57b",
+      "pca_file": "features\\BreaKHis\\pca_6d\\fold_01\\seed_42\\PCA_6D.npy",
+      "pca_sha256": "02245e822427cda368e307f7f23f4897c20f41166f9581769363b2dec1689a68",
+      "provenance_file": "features\\BreaKHis\\pca_6d\\fold_01\\seed_42\\PCA_PROVENANCE.json",
+      "provenance_sha256": "5ebfbeaca5a4783109b809a35e65ede8157936aad88a19d658d6d854bebe59d6"
+    },
+    {
+      "fold": 1,
+      "seed": 123,
+      "feature_file": "features\\BreaKHis\\pca_6d\\fold_01\\seed_123\\BreaKHis_FOLD_FEATURES_v1.npz",
+      "feature_sha256": "d2486e25b00328e4116ea3348973967df1b43d840e4d90b3281c1f3b1381c57b",
+      "pca_file": "features\\BreaKHis\\pca_6d\\fold_01\\seed_123\\PCA_6D.npy",
+      "pca_sha256": "02245e822427cda368e307f7f23f4897c20f41166f9581769363b2dec1689a68",
+      "provenance_file": "features\\BreaKHis\\pca_6d\\fold_01\\seed_123\\PCA_PROVENANCE.json",
+      "provenance_sha256": "21fd43d135478b7ca086a7650c6e428e7585c68a231409f4db2a52316bbbc884"
+    },
+    {
+      "fold": 1,
+      "seed": 2025,
+      "feature_file": "features\\BreaKHis\\pca_6d\\fold_01\\seed_2025\\BreaKHis_FOLD_FEATURES_v1.npz",
+      "feature_sha256": "d2486e25b00328e4116ea3348973967df1b43d840e4d90b3281c1f3b1381c57b",
+      "pca_file": "features\\BreaKHis\\pca_6d\\fold_01\\seed_2025\\PCA_6D.npy",
+      "pca_sha256": "02245e822427cda368e307f7f23f4897c20f41166f9581769363b2dec1689a68",
+      "provenance_file": "features\\BreaKHis\\pca_6d\\fold_01\\seed_2025\\PCA_PROVENANCE.json",
+      "provenance_sha256": "2364a6daace7170cb7738077e54005bf6a433849481f31306b4f5d7786440dac"
+    },
+    {
+      "fold": 2,
+      "seed": 42,
+      "feature_file": "features\\BreaKHis\\pca_6d\\fold_02\\seed_42\\BreaKHis_FOLD_FEATURES_v1.npz",
+      "feature_sha256": "deaaf8efaf42c030a10f26623b2a3fc122f8475ca5cc40cdceb8c8da185531d6",
+      "pca_file": "features\\BreaKHis\\pca_6d\\fold_02\\seed_42\\PCA_6D.npy",
+      "pca_sha256": "47de35abb63ec1747a1323c6076c88dd3d9b35af80a9b5842f3a63d318e1fe4a",
+      "provenance_file": "features\\BreaKHis\\pca_6d\\fold_02\\seed_42\\PCA_PROVENANCE.json",
+      "provenance_sha256": "a99b9082eb1ed42e2028f8c6ce2c2a021adfd4eeafb0d3505779980977440c2a"
+    },
+    {
+      "fold": 2,
+      "seed": 123,
+      "feature_file": "features\\BreaKHis\\pca_6d\\fold_02\\seed_123\\BreaKHis_FOLD_FEATURES_v1.npz",
+      "feature_sha256": "deaaf8efaf42c030a10f26623b2a3fc122f8475ca5cc40cdceb8c8da185531d6",
+      "pca_file": "features\\BreaKHis\\pca_6d\\fold_02\\seed_123\\PCA_6D.npy",
+      "pca_sha256": "47de35abb63ec1747a1323c6076c88dd3d9b35af80a9b5842f3a63d318e1fe4a",
+      "provenance_file": "features\\BreaKHis\\pca_6d\\fold_02\\seed_123\\PCA_PROVENANCE.json",
+      "provenance_sha256": "19f5da9175582cc6e59829c0cc773770e151dd89256c1dc583b47f35d27d6706"
+    },
+    {
+      "fold": 2,
+      "seed": 2025,
+      "feature_file": "features\\BreaKHis\\pca_6d\\fold_02\\seed_2025\\BreaKHis_FOLD_FEATURES_v1.npz",
+      "feature_sha256": "deaaf8efaf42c030a10f26623b2a3fc122f8475ca5cc40cdceb8c8da185531d6",
+      "pca_file": "features\\BreaKHis\\pca_6d\\fold_02\\seed_2025\\PCA_6D.npy",
+      "pca_sha256": "47de35abb63ec1747a1323c6076c88dd3d9b35af80a9b5842f3a63d318e1fe4a",
+      "provenance_file": "features\\BreaKHis\\pca_6d\\fold_02\\seed_2025\\PCA_PROVENANCE.json",
+      "provenance_sha256": "852d3726be7cf8c70f10e1066e240036c9f69a78f9a5520bd0d39be2e31c39d7"
+    },
+    {
+      "fold": 3,
+      "seed": 42,
+      "feature_file": "features\\BreaKHis\\pca_6d\\fold_03\\seed_42\\BreaKHis_FOLD_FEATURES_v1.npz",
+      "feature_sha256": "0f9758631bbbcaa5c2da2e77c774e90396b5335190b405f8cd55bb9b705d9ea8",
+      "pca_file": "features\\BreaKHis\\pca_6d\\fold_03\\seed_42\\PCA_6D.npy",
+      "pca_sha256": "da0ee303b4a5ff1d50d882ffcfc8abbb081627a9edffaad3c205c47b85ccfa11",
+      "provenance_file": "features\\BreaKHis\\pca_6d\\fold_03\\seed_42\\PCA_PROVENANCE.json",
+      "provenance_sha256": "344dac10c2c087f917bd68a7550dea8758d9d90f2b6b2728f63861f31e14c04e"
+    },
+    {
+      "fold": 3,
+      "seed": 123,
+      "feature_file": "features\\BreaKHis\\pca_6d\\fold_03\\seed_123\\BreaKHis_FOLD_FEATURES_v1.npz",
+      "feature_sha256": "0f9758631bbbcaa5c2da2e77c774e90396b5335190b405f8cd55bb9b705d9ea8",
+      "pca_file": "features\\BreaKHis\\pca_6d\\fold_03\\seed_123\\PCA_6D.npy",
+      "pca_sha256": "da0ee303b4a5ff1d50d882ffcfc8abbb081627a9edffaad3c205c47b85ccfa11",
+      "provenance_file": "features\\BreaKHis\\pca_6d\\fold_03\\seed_123\\PCA_PROVENANCE.json",
+      "provenance_sha256": "b42a965e35ac6b170b3f95d63d1da8969f15b7ae9edd51c29bf093a1a9f0c4f1"
+    },
+    {
+      "fold": 3,
+      "seed": 2025,
+      "feature_file": "features\\BreaKHis\\pca_6d\\fold_03\\seed_2025\\BreaKHis_FOLD_FEATURES_v1.npz",
+      "feature_sha256": "0f9758631bbbcaa5c2da2e77c774e90396b5335190b405f8cd55bb9b705d9ea8",
+      "pca_file": "features\\BreaKHis\\pca_6d\\fold_03\\seed_2025\\PCA_6D.npy",
+      "pca_sha256": "da0ee303b4a5ff1d50d882ffcfc8abbb081627a9edffaad3c205c47b85ccfa11",
+      "provenance_file": "features\\BreaKHis\\pca_6d\\fold_03\\seed_2025\\PCA_PROVENANCE.json",
+      "provenance_sha256": "4f3eee22aac4b22ed700ccc598c4e9c728b54377f42e77c71e7fe13cb2492900"
+    },
+    {
+      "fold": 4,
+      "seed": 42,
+      "feature_file": "features\\BreaKHis\\pca_6d\\fold_04\\seed_42\\BreaKHis_FOLD_FEATURES_v1.npz",
+      "feature_sha256": "ebf5f48af9e6ea1cbc731ab41203f31ae33c7a14a6d016828423893dba299be3",
+      "pca_file": "features\\BreaKHis\\pca_6d\\fold_04\\seed_42\\PCA_6D.npy",
+      "pca_sha256": "74cef180c571138ed0f2979859159d99d3a8889031686a4365cecf5dc4a64f7f",
+      "provenance_file": "features\\BreaKHis\\pca_6d\\fold_04\\seed_42\\PCA_PROVENANCE.json",
+      "provenance_sha256": "07a0fcb0c1012981bc9360536fcf67eeed21a714aca8765b1c549b3362a64956"
+    },
+    {
+      "fold": 4,
+      "seed": 123,
+      "feature_file": "features\\BreaKHis\\pca_6d\\fold_04\\seed_123\\BreaKHis_FOLD_FEATURES_v1.npz",
+      "feature_sha256": "ebf5f48af9e6ea1cbc731ab41203f31ae33c7a14a6d016828423893dba299be3",
+      "pca_file": "features\\BreaKHis\\pca_6d\\fold_04\\seed_123\\PCA_6D.npy",
+      "pca_sha256": "74cef180c571138ed0f2979859159d99d3a8889031686a4365cecf5dc4a64f7f",
+      "provenance_file": "features\\BreaKHis\\pca_6d\\fold_04\\seed_123\\PCA_PROVENANCE.json",
+      "provenance_sha256": "485171619b47f3dcddd39f82317cd16b4275a27d2990f13a572c4be8267f0059"
+    },
+    {
+      "fold": 4,
+      "seed": 2025,
+      "feature_file": "features\\BreaKHis\\pca_6d\\fold_04\\seed_2025\\BreaKHis_FOLD_FEATURES_v1.npz",
+      "feature_sha256": "ebf5f48af9e6ea1cbc731ab41203f31ae33c7a14a6d016828423893dba299be3",
+      "pca_file": "features\\BreaKHis\\pca_6d\\fold_04\\seed_2025\\PCA_6D.npy",
+      "pca_sha256": "74cef180c571138ed0f2979859159d99d3a8889031686a4365cecf5dc4a64f7f",
+      "provenance_file": "features\\BreaKHis\\pca_6d\\fold_04\\seed_2025\\PCA_PROVENANCE.json",
+      "provenance_sha256": "5e05d0f8925318a25277a1ada0f6aa7ac29e337d85895c3116fe178466e46843"
+    },
+    {
+      "fold": 5,
+      "seed": 42,
+      "feature_file": "features\\BreaKHis\\pca_6d\\fold_05\\seed_42\\BreaKHis_FOLD_FEATURES_v1.npz",
+      "feature_sha256": "6fb9ac04e55e6cd06fc392065b14aebd1ff001dc8b9e281f3e9a7f769a2e3ff4",
+      "pca_file": "features\\BreaKHis\\pca_6d\\fold_05\\seed_42\\PCA_6D.npy",
+      "pca_sha256": "f424d84feb2f48fadfb7a6844d99b0a255201502035bbbad1b50b85fd6412c65",
+      "provenance_file": "features\\BreaKHis\\pca_6d\\fold_05\\seed_42\\PCA_PROVENANCE.json",
+      "provenance_sha256": "1b7859e893083f8a3343fad7deda9d977cc3e316b3dbafbc0d5043d52cab8194"
+    },
+    {
+      "fold": 5,
+      "seed": 123,
+      "feature_file": "features\\BreaKHis\\pca_6d\\fold_05\\seed_123\\BreaKHis_FOLD_FEATURES_v1.npz",
+      "feature_sha256": "6fb9ac04e55e6cd06fc392065b14aebd1ff001dc8b9e281f3e9a7f769a2e3ff4",
+      "pca_file": "features\\BreaKHis\\pca_6d\\fold_05\\seed_123\\PCA_6D.npy",
+      "pca_sha256": "f424d84feb2f48fadfb7a6844d99b0a255201502035bbbad1b50b85fd6412c65",
+      "provenance_file": "features\\BreaKHis\\pca_6d\\fold_05\\seed_123\\PCA_PROVENANCE.json",
+      "provenance_sha256": "2545ea1cedf963c535260df9e2e7f5c3ffca540e415c08d46158a26448739896"
+    },
+    {
+      "fold": 5,
+      "seed": 2025,
+      "feature_file": "features\\BreaKHis\\pca_6d\\fold_05\\seed_2025\\BreaKHis_FOLD_FEATURES_v1.npz",
+      "feature_sha256": "6fb9ac04e55e6cd06fc392065b14aebd1ff001dc8b9e281f3e9a7f769a2e3ff4",
+      "pca_file": "features\\BreaKHis\\pca_6d\\fold_05\\seed_2025\\PCA_6D.npy",
+      "pca_sha256": "f424d84feb2f48fadfb7a6844d99b0a255201502035bbbad1b50b85fd6412c65",
+      "provenance_file": "features\\BreaKHis\\pca_6d\\fold_05\\seed_2025\\PCA_PROVENANCE.json",
+      "provenance_sha256": "6ed7da5c0743b188555c525cda3f55b8899bf3dedeca2861600d751aa30b2e11"
+    }
+  ],
+  "pilot_required": true,
+  "training_performed": false,
+  "scientific_outputs_created": false,
+  "created_utc": "2026-08-29T13:43:38.815748+00:00"
+}
