@@ -1,0 +1,52 @@
+{
+  "schema_version": "ASUS-13-v1",
+  "run_identity": {
+    "run_id": "required",
+    "git_commit": "required",
+    "timestamp_utc": "required",
+    "dataset": "required",
+    "fold": "required",
+    "seed": "required"
+  },
+  "data": {
+    "manifest": "required",
+    "manifest_sha256": "required",
+    "train_count": "required",
+    "validation_count": "required",
+    "test_count": "required"
+  },
+  "model": {
+    "model_name": "required",
+    "model_version": "required",
+    "parameter_count": "required",
+    "checkpoint": "required"
+  },
+  "predictions": {
+    "sample_id": "required",
+    "true_label": "required",
+    "predicted_label": "required",
+    "probability": "required"
+  },
+  "uncertainty": {
+    "epistemic_uncertainty": "required",
+    "uncertainty_method": "required"
+  },
+  "metrics": {
+    "accuracy": "required",
+    "balanced_accuracy": "required",
+    "precision": "required",
+    "recall": "required",
+    "f1": "required",
+    "roc_auc": "required",
+    "pr_auc": "required",
+    "ece": "required",
+    "selective_metrics": "required"
+  },
+  "publication": {
+    "source_data": "required",
+    "generation_script": "required",
+    "pdf": "required",
+    "svg": "required",
+    "png_400dpi": "required"
+  }
+}

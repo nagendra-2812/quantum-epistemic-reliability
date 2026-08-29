@@ -1,0 +1,65 @@
+﻿{
+  "project": "quantum-epistemic-reliability",
+  "stage": "ASUS-12",
+  "dataset": "BreaKHis",
+  "execution_backend": "local_ASUS_RTX_5060",
+
+  "dataset_root": "E:\\CBIS_DDSM_QUANTUM\\BreaKHis_v1\\BreaKHis_v1",
+
+  "frozen_manifests": {
+    "root": "manifests",
+    "pattern": "BreaKHis_FOLD_{fold:02d}_VERIFIED_v1.csv",
+    "freeze_record": "manifests/BreaKHis_FIVE_FOLD_FREEZE_v1.json"
+  },
+
+  "historical_project": {
+    "path": "D:\\AI\\quantum-uncertainty-shift",
+    "role": "reference_only",
+    "read_for_execution": false,
+    "write_allowed": false,
+    "training_allowed": false,
+    "result_import_allowed": false
+  },
+
+  "kaggle_cbisd_dsm": {
+    "role": "independent_compute_track",
+    "local_access": false,
+    "result_import_stage": "predefined_cross_dataset_analysis_only"
+  },
+
+  "reproducibility": {
+    "seed_required": true,
+    "deterministic_mode_required": true,
+    "git_commit_required": true,
+    "environment_record_required": true,
+    "config_hash_required": true,
+    "manifest_hash_required": true,
+    "run_id_required": true
+  },
+
+  "outputs": {
+    "predictions_required": true,
+    "uncertainty_required": true,
+    "fold_metrics_required": true,
+    "aggregate_metrics_required": true,
+    "source_data_required": true
+  },
+
+  "publication": {
+    "figure_source_data_required": true,
+    "figure_generation_script_required": true,
+    "pdf_required": true,
+    "svg_required": true,
+    "png_required": true,
+    "png_dpi": 400,
+    "font_embedding_required": true,
+    "screenshots_prohibited": true
+  },
+
+  "data_policy": {
+    "new_random_patient_split": false,
+    "modify_frozen_manifests": false,
+    "modify_source_dataset": false,
+    "overwrite_previous_runs": false
+  }
+}
