@@ -811,7 +811,7 @@ for fold in range(1, 6):
             train_label=np.array(
                 df.loc[
                     train_mask,
-                    "label"
+                    "label_numeric"
                 ],
                 dtype=np.int64
             ),
