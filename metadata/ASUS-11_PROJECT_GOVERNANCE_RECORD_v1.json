@@ -1,0 +1,63 @@
+{
+  "step": "ASUS-11",
+  "status": "VERIFIED",
+  "timestamp_utc": "2026-08-29T11:44:29.440421+00:00",
+  "project": "quantum-epistemic-reliability",
+  "project_root": "D:\\AI\\quantum-epistemic-reliability",
+  "git": {
+    "branch": "main",
+    "commit_at_protocol_verification": "ef754ecbe3041b41bd1477d1720c891ee6ab09ac"
+  },
+  "environment": {
+    "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "executable": "D:\\AI\\quantum-epistemic-reliability\\.venv\\Scripts\\python.exe"
+  },
+  "scientific_separation": {
+    "local_execution": true,
+    "kaggle_cbisd_dsm_execution": "independent",
+    "historical_project_reference_only": true,
+    "historical_project": "D:\\AI\\quantum-uncertainty-shift",
+    "cross_project_training": false,
+    "cross_project_output_writing": false,
+    "kaggle_touched": false
+  },
+  "dataset_freeze": {
+    "dataset": "BreaKHis",
+    "physical_image_count": 7909,
+    "fold_count": 5,
+    "rows_per_fold": 7909,
+    "freeze_record": "manifests\\BreaKHis_FIVE_FOLD_FREEZE_v1.json",
+    "patient_disjoint": true,
+    "case_disjoint": true
+  },
+  "publication_requirements": {
+    "vector_pdf": true,
+    "vector_svg": true,
+    "png_400_dpi": true,
+    "font_embedding": true,
+    "source_data_required": true,
+    "generation_script_required": true,
+    "screenshot_figures_prohibited": true
+  },
+  "reproducibility_requirements": {
+    "explicit_seed": true,
+    "git_commit": true,
+    "dataset_manifest_hash": true,
+    "source_code_hash": true,
+    "environment_record": true,
+    "run_metadata": true,
+    "predictions": true,
+    "uncertainty_values": true,
+    "fold_metrics": true,
+    "aggregate_metrics": true,
+    "figure_source_data": true,
+    "table_source_data": true
+  },
+  "execution_state": {
+    "training_performed": false,
+    "dataset_modified": false,
+    "kaggle_data_modified": false,
+    "historical_project_modified": false
+  }
+}

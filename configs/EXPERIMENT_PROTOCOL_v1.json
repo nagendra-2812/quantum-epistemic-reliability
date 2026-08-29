@@ -1,0 +1,165 @@
+﻿{
+  "protocol_name": "Quantum Reliability Learning for Breast Cancer Imaging Under Distribution Shift",
+  "protocol_version": "v1.0",
+  "project": "quantum-epistemic-reliability",
+  "status": "EXPERIMENT_PROTOCOL_FROZEN",
+
+  "scientific_scope": {
+    "primary_dataset_local": "BreaKHis",
+    "local_dataset_root": "E:\\CBIS_DDSM_QUANTUM\\BreaKHis_v1\\BreaKHis_v1",
+    "external_shift_dataset": "CBIS-DDSM",
+    "external_shift_execution": "Kaggle",
+    "secondary_dataset": "Breast Thermography",
+    "primary_question": "Whether a noise-aware hybrid quantum-classical model can provide reliable predictive uncertainty and selective prediction under distribution shift."
+  },
+
+  "execution_separation": {
+    "local_machine": "ASUS RTX 5060 Laptop GPU",
+    "local_project_root": "D:\\AI\\quantum-epistemic-reliability",
+    "kaggle_project": "CBIS-DDSM independent execution",
+    "historical_project": "D:\\AI\\quantum-uncertainty-shift",
+    "historical_project_usage": "reference_only",
+    "cross_project_training": false,
+    "cross_project_output_writing": false
+  },
+
+  "dataset_freeze": {
+    "dataset": "BreaKHis",
+    "physical_images": 7909,
+    "folds": 5,
+    "rows_per_fold": 7909,
+    "manifest_directory": "manifests",
+    "freeze_record": "manifests/BreaKHis_FIVE_FOLD_FREEZE_v1.json",
+    "manifest_pattern": "manifests/BreaKHis_FOLD_{fold:02d}_VERIFIED_v1.csv",
+    "patient_disjoint": true,
+    "case_disjoint": true,
+    "source_dataset_modified": false
+  },
+
+  "experimental_design": {
+    "cross_validation": "five_fold",
+    "split_policy": "predefined_patient_disjoint_folds",
+    "training_split": "train",
+    "validation_split": "val",
+    "test_split": "test",
+    "test_reuse_for_model_selection": false,
+    "patient_level_split_required": true,
+    "case_level_leakage_check_required": true,
+    "random_seed_policy": "explicit_and_recorded"
+  },
+
+  "modeling": {
+    "framework": "hybrid_quantum_classical",
+    "classical_component": "deep_image_feature_extractor",
+    "quantum_component": "compact_variational_quantum_circuit",
+    "comparison_required": true,
+    "classical_baseline_required": true,
+    "matched_training_protocol_required": true,
+    "noise_aware_quantum_evaluation": true,
+    "quantum_shot_based_evaluation": true
+  },
+
+  "uncertainty": {
+    "epistemic_uncertainty": true,
+    "stochastic_repeated_evaluation": true,
+    "predictive_entropy": true,
+    "prediction_variability": true,
+    "uncertainty_error_association": true,
+    "calibration_analysis": true,
+    "selective_prediction": true,
+    "coverage_risk_analysis": true
+  },
+
+  "evaluation": {
+    "classification_metrics": [
+      "accuracy",
+      "balanced_accuracy",
+      "sensitivity",
+      "specificity",
+      "precision",
+      "f1",
+      "roc_auc",
+      "pr_auc"
+    ],
+    "calibration_metrics": [
+      "expected_calibration_error",
+      "maximum_calibration_error",
+      "brier_score"
+    ],
+    "selective_metrics": [
+      "coverage",
+      "selective_risk",
+      "risk_coverage_curve",
+      "area_under_risk_coverage_curve"
+    ],
+    "uncertainty_metrics": [
+      "entropy",
+      "prediction_variability",
+      "uncertainty_error_correlation",
+      "error_enrichment_at_high_uncertainty"
+    ]
+  },
+
+  "reproducibility": {
+    "python_version_required": "3.11.9",
+    "gpu_required": true,
+    "cuda_runtime": "12.8",
+    "random_seed_required": true,
+    "git_commit_required": true,
+    "dataset_manifest_hash_required": true,
+    "source_code_hash_required": true,
+    "environment_record_required": true,
+    "run_metadata_required": true
+  },
+
+  "artifact_policy": {
+    "predictions_saved": true,
+    "probabilities_saved": true,
+    "uncertainty_values_saved": true,
+    "fold_metrics_saved": true,
+    "aggregate_metrics_saved": true,
+    "calibration_outputs_saved": true,
+    "selective_prediction_outputs_saved": true,
+    "figure_source_data_saved": true,
+    "tables_source_data_saved": true,
+    "experiment_log_saved": true
+  },
+
+  "publication_figures": {
+    "vector_formats": [
+      "PDF",
+      "SVG"
+    ],
+    "raster_format": "PNG",
+    "raster_dpi": 400,
+    "font_embedding_required": true,
+    "editable_vector_source_required": true,
+    "figure_source_code_required": true,
+    "figure_data_csv_required": true,
+    "no_screenshot_figures": true
+  },
+
+  "final_delivery": {
+    "format": "ZIP",
+    "target": "manuscript_ready_reproducibility_package",
+    "must_include": [
+      "README",
+      "protocol",
+      "environment",
+      "source_code",
+      "dataset_manifests",
+      "experiment_metadata",
+      "predictions",
+      "metrics",
+      "calibration_results",
+      "selective_prediction_results",
+      "figure_source_data",
+      "vector_figures",
+      "400dpi_png_figures",
+      "tables",
+      "checksums",
+      "git_information"
+    ],
+    "raw_dataset_included": false
+  }
+}
