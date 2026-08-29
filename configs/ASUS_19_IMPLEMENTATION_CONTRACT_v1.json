@@ -1,0 +1,139 @@
+{
+  "step": "ASUS-19",
+  "status": "IMPLEMENTATION_CONTRACT_VERIFIED",
+  "project": "quantum-epistemic-reliability",
+  "dataset": "BreaKHis",
+  "backend": "local_ASUS_RTX_5060",
+  "locked_specification": "configs\\ASUS_18_EXPERIMENT_SPECIFICATION_v1.json",
+  "experiment": {
+    "dataset": "BreaKHis",
+    "outer_folds": 5,
+    "seeds": [
+      42,
+      123,
+      2025
+    ],
+    "primary_endpoint": "AURC",
+    "epistemic_method": "ensemble mutual information",
+    "pca_components": 6,
+    "feature_dimension": 512,
+    "experimental_arms": [
+      {
+        "name": "softmax",
+        "architecture": "Linear(6->1)+sigmoid",
+        "trainable_parameters": 7
+      },
+      {
+        "name": "temperature_scaled",
+        "architecture": "Softmax+post-hoc temperature",
+        "trainable_parameters": 8
+      },
+      {
+        "name": "mc_dropout",
+        "architecture": "Linear(6->16)+Dropout(0.2)+Linear(16->1)",
+        "passes": 30,
+        "trainable_parameters": 129
+      },
+      {
+        "name": "deep_ensemble",
+        "architecture": "5 independent Softmax models",
+        "ensemble_members": 5,
+        "trainable_parameters": 35
+      },
+      {
+        "name": "deterministic_vqc",
+        "architecture": "6-qubit VQC",
+        "qubits": 6,
+        "ansatz_layers": 2,
+        "encoding": "RY+RZ",
+        "entanglement": "ring CNOT",
+        "trainable_parameters": 24,
+        "encoding_parameters_trainable": false,
+        "simulation": "exact statevector"
+      },
+      {
+        "name": "laplace_vqc",
+        "architecture": "Deterministic VQC + Laplace perturbation",
+        "trainable_parameters": 24
+      },
+      {
+        "name": "laplace_mlp",
+        "architecture": "Linear(6->3)+tanh+Linear(3->1)+Laplace perturbation",
+        "trainable_parameters": 25
+      }
+    ]
+  },
+  "data_integrity": {
+    "frozen_manifests_only": true,
+    "new_random_patient_split": false,
+    "test_data_for_pca": false,
+    "test_data_for_model_selection": false,
+    "test_data_for_hyperparameter_selection": false
+  },
+  "pca_policy": {
+    "input_dimension": 512,
+    "output_dimension": 6,
+    "fit_on_training_data_only": true,
+    "validation_transform_only": true,
+    "test_transform_only": true
+  },
+  "uncertainty": {
+    "method": "ensemble mutual information",
+    "formula": "H(mean(p)) - mean(H(p))",
+    "aleatoric_uncertainty_claim": false
+  },
+  "evaluation": {
+    "unit": "patient_or_case",
+    "primary_endpoint": "AURC",
+    "selective_prediction": true,
+    "error_detection": true,
+    "calibration": true,
+    "metrics": [
+      "accuracy",
+      "balanced_accuracy",
+      "precision",
+      "recall",
+      "f1",
+      "roc_auc",
+      "pr_auc",
+      "ece",
+      "AURC",
+      "risk_coverage",
+      "uncertainty_error_discrimination"
+    ]
+  },
+  "reproducibility": {
+    "three_seeds": true,
+    "five_outer_folds": true,
+    "run_id": true,
+    "git_commit": true,
+    "manifest_hash": true,
+    "config_hash": true,
+    "environment_record": true,
+    "predictions": true,
+    "uncertainty": true,
+    "fold_metrics": true,
+    "aggregate_metrics": true
+  },
+  "publication": {
+    "source_data": true,
+    "generation_scripts": true,
+    "vector_pdf": true,
+    "vector_svg": true,
+    "png": true,
+    "png_dpi": 400,
+    "font_embedding": true,
+    "screenshots": false
+  },
+  "execution_separation": {
+    "asus_breaKHis": "independent",
+    "kaggle_cbis_ddsm": "independent",
+    "historical_project": "reference_only",
+    "cross_dataset_analysis": "only_after_independent_completion"
+  },
+  "training": {
+    "enabled": true,
+    "overwrite_previous_runs": false,
+    "pilot_before_full_experiment": true
+  }
+}
