@@ -1,0 +1,129 @@
+﻿{
+  "step": "ASUS-21",
+  "status": "TRAINING_PROTOCOL_FROZEN",
+  "project": "quantum-epistemic-reliability",
+  "dataset": "BreaKHis",
+
+  "source_contracts": [
+    "configs/ASUS_18_EXPERIMENT_SPECIFICATION_v1.json",
+    "configs/ASUS_19_IMPLEMENTATION_CONTRACT_v1.json"
+  ],
+
+  "representation": {
+    "backbone": "Frozen ImageNet ResNet-18",
+    "feature_dimension": 512,
+    "pca_dimension": 6,
+    "pca_fit_scope": "training_data_only",
+    "validation_transform_only": true,
+    "test_transform_only": true
+  },
+
+  "cross_validation": {
+    "outer_folds": 5,
+    "seeds": [42, 123, 2025],
+    "total_fold_seed_runs": 15
+  },
+
+  "training": {
+    "epochs": 30,
+    "batch_size": 32,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "selection_metric": "validation ROC-AUC",
+    "decision_threshold": 0.5,
+    "test_used_for_model_selection": false,
+    "test_used_for_hyperparameter_selection": false,
+    "overwrite_previous_runs": false
+  },
+
+  "experimental_arms": [
+    {
+      "name": "softmax",
+      "architecture": "Linear(6->1)+sigmoid",
+      "trainable_parameters": 7
+    },
+    {
+      "name": "temperature_scaled",
+      "architecture": "Softmax+post-hoc temperature",
+      "trainable_parameters": 8
+    },
+    {
+      "name": "mc_dropout",
+      "architecture": "Linear(6->16)+Dropout(0.2)+Linear(16->1)",
+      "passes": 30,
+      "trainable_parameters": 129
+    },
+    {
+      "name": "deep_ensemble",
+      "architecture": "5 independent Softmax models",
+      "ensemble_members": 5,
+      "trainable_parameters": 35
+    },
+    {
+      "name": "deterministic_vqc",
+      "architecture": "6-qubit VQC",
+      "qubits": 6,
+      "ansatz_layers": 2,
+      "encoding": "RY+RZ",
+      "entanglement": "ring CNOT",
+      "trainable_parameters": 24,
+      "encoding_parameters_trainable": false,
+      "simulation": "exact statevector"
+    },
+    {
+      "name": "laplace_vqc",
+      "architecture": "Deterministic VQC + Laplace perturbation",
+      "trainable_parameters": 24
+    },
+    {
+      "name": "laplace_mlp",
+      "architecture": "Linear(6->3)+tanh+Linear(3->1)+Laplace perturbation",
+      "trainable_parameters": 25
+    }
+  ],
+
+  "uncertainty": {
+    "primary_method": "ensemble mutual information",
+    "formula": "H(mean(p)) - mean(H(p))",
+    "aleatoric_uncertainty_claim": false,
+    "mc_dropout_passes": 30,
+    "deep_ensemble_members": 5
+  },
+
+  "evaluation": {
+    "unit": "patient_or_case",
+    "primary_endpoint": "AURC",
+    "metrics": [
+      "accuracy",
+      "balanced_accuracy",
+      "precision",
+      "recall",
+      "f1",
+      "roc_auc",
+      "pr_auc",
+      "ece",
+      "AURC",
+      "risk_coverage",
+      "uncertainty_error_discrimination"
+    ]
+  },
+
+  "pilot": {
+    "required": true,
+    "purpose": "Validate implementation before full experiment",
+    "full_experiment_must_not_start_before_pilot_verification": true
+  },
+
+  "reproducibility": {
+    "run_id_required": true,
+    "git_commit_required": true,
+    "seed_required": true,
+    "manifest_hash_required": true,
+    "config_hash_required": true,
+    "environment_record_required": true,
+    "predictions_required": true,
+    "uncertainty_values_required": true,
+    "fold_metrics_required": true,
+    "aggregate_metrics_required": true
+  }
+}
