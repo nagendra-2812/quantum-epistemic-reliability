@@ -1,0 +1,61 @@
+{
+  "step": "ASUS-14",
+  "status": "VERIFIED",
+  "project": "quantum-epistemic-reliability",
+  "timestamp_utc": "2026-08-29T11:47:37.211942+00:00",
+  "git": {
+    "branch": "main",
+    "commit": "7398067e7657c125ba3e0ba725b768e32203e64f",
+    "clean_worktree_required": true
+  },
+  "python": {
+    "version": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+    "executable": "D:\\AI\\quantum-epistemic-reliability\\.venv\\Scripts\\python.exe"
+  },
+  "platform": {
+    "system": "Windows",
+    "release": "10",
+    "version": "10.0.26200",
+    "machine": "AMD64",
+    "platform": "Windows-10-10.0.26200-SP0"
+  },
+  "packages": {
+    "torch": "2.11.0+cu128",
+    "torchvision": "0.26.0+cu128",
+    "numpy": "2.4.6",
+    "pandas": "3.0.5",
+    "Pillow": "12.3.0"
+  },
+  "torch": {
+    "version": "2.11.0+cu128",
+    "torchvision_version": "0.26.0+cu128",
+    "cuda_available": true,
+    "cuda_runtime": "12.8",
+    "device_count": 1,
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "compute_capability": [
+      12,
+      0
+    ]
+  },
+  "dataset": {
+    "name": "BreaKHis",
+    "physical_images": 7909,
+    "folds": 5,
+    "manifest_freeze": "manifests/BreaKHis_FIVE_FOLD_FREEZE_v1.json"
+  },
+  "execution_separation": {
+    "historical_project": "D:\\AI\\quantum-uncertainty-shift",
+    "historical_project_execution": false,
+    "kaggle_cbisd_dsm_execution": "independent",
+    "cross_dataset_analysis": "not_started"
+  },
+  "publication": {
+    "png_dpi": 400,
+    "vector_pdf": true,
+    "vector_svg": true,
+    "font_embedding": true,
+    "screenshots_prohibited": true
+  },
+  "environment_lock_sha256": "d79f480290cf02db34b4963bff9e034ecb5fa4965ff3495fd20de0bcf9f520fc"
+}
