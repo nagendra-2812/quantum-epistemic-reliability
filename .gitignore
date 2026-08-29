@@ -25,3 +25,7 @@ Thumbs.db
 
 # Local machine configuration
 configs/LOCAL_DATASET_PATHS.json
+
+# Generated experiment artifacts
+features/
+
