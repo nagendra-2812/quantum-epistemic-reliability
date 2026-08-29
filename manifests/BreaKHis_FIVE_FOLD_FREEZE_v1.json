@@ -1,0 +1,90 @@
+{
+  "step": "ASUS-05R",
+  "dataset": "BreaKHis",
+  "status": "VERIFIED_FROZEN",
+  "physical_root": "E:\\CBIS_DDSM_QUANTUM\\BreaKHis_v1\\BreaKHis_v1",
+  "physical_image_count": 7909,
+  "fold_count": 5,
+  "rows_per_fold": 7909,
+  "source_project": "D:\\AI\\quantum-uncertainty-shift",
+  "source_fold_sha256": {
+    "fold_01.csv": "f817951765e9ca010874b86e5b8899b7a25586ef1802c56a140ebeee346b5863",
+    "fold_02.csv": "e76de6b5cd9125bdef8eb5c5e0663420408cdd4d51bd906d8eb80a8247341416",
+    "fold_03.csv": "205371e6b6b4357f2b60572ffd3c12c001b61cfc02eb2842cf255bc44e5136f7",
+    "fold_04.csv": "7a70014268798fc6e7c0910cd88ebee0b6515be469a12ef946573dbcf80f5dbd",
+    "fold_05.csv": "038aefc889c316f29fe2edf67b099852ab2935f4b859baacf7e45a11c0bcbace"
+  },
+  "verified_manifest_sha256": {
+    "BreaKHis_FOLD_01_VERIFIED_v1.csv": "4edbdcb4295610904ebf57bd011b758e389c8c9bf2f55d932d61073cc47d1058",
+    "BreaKHis_FOLD_02_VERIFIED_v1.csv": "66e763b32070347252a1fe2f0cfa35810d8cd5a479e980c0ea94ba6d8293992d",
+    "BreaKHis_FOLD_03_VERIFIED_v1.csv": "9f4aa057a7b4eb10557aba4af4e32f6fd7a96c740665568c8c2fe776f263f1c7",
+    "BreaKHis_FOLD_04_VERIFIED_v1.csv": "7f813fcd192bb9d1114f9e49635d4586745332a22245c322582420b4d7652f6f",
+    "BreaKHis_FOLD_05_VERIFIED_v1.csv": "67ecb6e947eb79d94370cb7a266b25952fa43de9b9d292bab573c01327d01e1c"
+  },
+  "fold_validation": [
+    {
+      "fold": 1,
+      "rows": 7909,
+      "unique_image_paths": 7909,
+      "unresolved_paths": 0,
+      "patient_train_val_overlap": 0,
+      "patient_train_test_overlap": 0,
+      "patient_val_test_overlap": 0,
+      "case_train_val_overlap": 0,
+      "case_train_test_overlap": 0,
+      "case_val_test_overlap": 0
+    },
+    {
+      "fold": 2,
+      "rows": 7909,
+      "unique_image_paths": 7909,
+      "unresolved_paths": 0,
+      "patient_train_val_overlap": 0,
+      "patient_train_test_overlap": 0,
+      "patient_val_test_overlap": 0,
+      "case_train_val_overlap": 0,
+      "case_train_test_overlap": 0,
+      "case_val_test_overlap": 0
+    },
+    {
+      "fold": 3,
+      "rows": 7909,
+      "unique_image_paths": 7909,
+      "unresolved_paths": 0,
+      "patient_train_val_overlap": 0,
+      "patient_train_test_overlap": 0,
+      "patient_val_test_overlap": 0,
+      "case_train_val_overlap": 0,
+      "case_train_test_overlap": 0,
+      "case_val_test_overlap": 0
+    },
+    {
+      "fold": 4,
+      "rows": 7909,
+      "unique_image_paths": 7909,
+      "unresolved_paths": 0,
+      "patient_train_val_overlap": 0,
+      "patient_train_test_overlap": 0,
+      "patient_val_test_overlap": 0,
+      "case_train_val_overlap": 0,
+      "case_train_test_overlap": 0,
+      "case_val_test_overlap": 0
+    },
+    {
+      "fold": 5,
+      "rows": 7909,
+      "unique_image_paths": 7909,
+      "unresolved_paths": 0,
+      "patient_train_val_overlap": 0,
+      "patient_train_test_overlap": 0,
+      "patient_val_test_overlap": 0,
+      "case_train_val_overlap": 0,
+      "case_train_test_overlap": 0,
+      "case_val_test_overlap": 0
+    }
+  ],
+  "patient_disjoint_all_folds": true,
+  "case_disjoint_all_folds": true,
+  "training_performed": false,
+  "source_data_modified": false
+}

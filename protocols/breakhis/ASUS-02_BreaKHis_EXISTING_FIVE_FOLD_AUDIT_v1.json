@@ -1,0 +1,42 @@
+{
+  "step": "ASUS-02",
+  "dataset": "BreaKHis",
+  "physical_root": "E:\\CBIS_DDSM_QUANTUM\\BreaKHis_v1\\BreaKHis_v1",
+  "physical_images": 7909,
+  "combined_fold_rows": 39545,
+  "path_column": "image_path",
+  "label_column": "label",
+  "identity_candidates": [
+    "patient_id",
+    "case_id"
+  ],
+  "exact_physical_path_matches": 0,
+  "unique_split_paths": 7909,
+  "duplicate_split_path_rows": 39545,
+  "fold_row_counts": {
+    "fold_01": 7909,
+    "fold_02": 7909,
+    "fold_03": 7909,
+    "fold_04": 7909,
+    "fold_05": 7909
+  },
+  "fold_overlap": {
+    "fold_01_x_fold_02": 7909,
+    "fold_01_x_fold_03": 7909,
+    "fold_01_x_fold_04": 7909,
+    "fold_01_x_fold_05": 7909,
+    "fold_02_x_fold_03": 7909,
+    "fold_02_x_fold_04": 7909,
+    "fold_02_x_fold_05": 7909,
+    "fold_03_x_fold_04": 7909,
+    "fold_03_x_fold_05": 7909,
+    "fold_04_x_fold_05": 7909
+  },
+  "sha256": {
+    "fold_01.csv": "f817951765e9ca010874b86e5b8899b7a25586ef1802c56a140ebeee346b5863",
+    "fold_02.csv": "e76de6b5cd9125bdef8eb5c5e0663420408cdd4d51bd906d8eb80a8247341416",
+    "fold_03.csv": "205371e6b6b4357f2b60572ffd3c12c001b61cfc02eb2842cf255bc44e5136f7",
+    "fold_04.csv": "7a70014268798fc6e7c0910cd88ebee0b6515be469a12ef946573dbcf80f5dbd",
+    "fold_05.csv": "038aefc889c316f29fe2edf67b099852ab2935f4b859baacf7e45a11c0bcbace"
+  }
+}

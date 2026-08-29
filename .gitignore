@@ -1,0 +1,27 @@
+﻿# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Local logs
+logs/
+
+# Large experiment outputs
+checkpoints/
+predictions/
+
+# Temporary files
+*.tmp
+*.temp
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Local machine configuration
+configs/LOCAL_DATASET_PATHS.json
