@@ -1,0 +1,237 @@
+{
+  "step": "ASUS-20B",
+  "status": "VERIFIED_FEATURE_EXTRACTION_COMPLETE",
+  "project": "quantum-epistemic-reliability",
+  "dataset": "BreaKHis",
+  "physical_images": 7909,
+  "folds": 5,
+  "seeds": [
+    42,
+    123,
+    2025
+  ],
+  "backbone": {
+    "name": "ResNet-18",
+    "weights": "ResNet18_Weights.IMAGENET1K_V1",
+    "frozen": true,
+    "feature_dimension": 512
+  },
+  "pca": {
+    "components": 6,
+    "fit_scope": "training_data_only",
+    "validation_refit": false,
+    "test_refit": false
+  },
+  "feature_cache": {
+    "path": "features\\BreaKHis\\resnet18_512_cache\\BreaKHis_RESNET18_512_FEATURES_v1.npz",
+    "sha256": "df51fa5c56c16b43f7188625c123e771064aca523824eac8b96bc08ebad74df7",
+    "shape": [
+      7909,
+      512
+    ]
+  },
+  "runs": [
+    {
+      "fold": 1,
+      "seed": 42,
+      "train": 5265,
+      "validation": 1290,
+      "test": 1354,
+      "feature_output": "features\\BreaKHis\\pca_6d\\fold_01\\seed_42\\BreaKHis_FOLD_FEATURES_v1.npz",
+      "feature_output_sha256": "d2486e25b00328e4116ea3348973967df1b43d840e4d90b3281c1f3b1381c57b",
+      "provenance": "features\\BreaKHis\\pca_6d\\fold_01\\seed_42\\PCA_PROVENANCE.json",
+      "provenance_sha256": "5ebfbeaca5a4783109b809a35e65ede8157936aad88a19d658d6d854bebe59d6",
+      "explained_variance": 0.4043276906013489
+    },
+    {
+      "fold": 1,
+      "seed": 123,
+      "train": 5265,
+      "validation": 1290,
+      "test": 1354,
+      "feature_output": "features\\BreaKHis\\pca_6d\\fold_01\\seed_123\\BreaKHis_FOLD_FEATURES_v1.npz",
+      "feature_output_sha256": "d2486e25b00328e4116ea3348973967df1b43d840e4d90b3281c1f3b1381c57b",
+      "provenance": "features\\BreaKHis\\pca_6d\\fold_01\\seed_123\\PCA_PROVENANCE.json",
+      "provenance_sha256": "21fd43d135478b7ca086a7650c6e428e7585c68a231409f4db2a52316bbbc884",
+      "explained_variance": 0.4043276906013489
+    },
+    {
+      "fold": 1,
+      "seed": 2025,
+      "train": 5265,
+      "validation": 1290,
+      "test": 1354,
+      "feature_output": "features\\BreaKHis\\pca_6d\\fold_01\\seed_2025\\BreaKHis_FOLD_FEATURES_v1.npz",
+      "feature_output_sha256": "d2486e25b00328e4116ea3348973967df1b43d840e4d90b3281c1f3b1381c57b",
+      "provenance": "features\\BreaKHis\\pca_6d\\fold_01\\seed_2025\\PCA_PROVENANCE.json",
+      "provenance_sha256": "2364a6daace7170cb7738077e54005bf6a433849481f31306b4f5d7786440dac",
+      "explained_variance": 0.4043276906013489
+    },
+    {
+      "fold": 2,
+      "seed": 42,
+      "train": 5449,
+      "validation": 1049,
+      "test": 1411,
+      "feature_output": "features\\BreaKHis\\pca_6d\\fold_02\\seed_42\\BreaKHis_FOLD_FEATURES_v1.npz",
+      "feature_output_sha256": "deaaf8efaf42c030a10f26623b2a3fc122f8475ca5cc40cdceb8c8da185531d6",
+      "provenance": "features\\BreaKHis\\pca_6d\\fold_02\\seed_42\\PCA_PROVENANCE.json",
+      "provenance_sha256": "a99b9082eb1ed42e2028f8c6ce2c2a021adfd4eeafb0d3505779980977440c2a",
+      "explained_variance": 0.40659433603286743
+    },
+    {
+      "fold": 2,
+      "seed": 123,
+      "train": 5449,
+      "validation": 1049,
+      "test": 1411,
+      "feature_output": "features\\BreaKHis\\pca_6d\\fold_02\\seed_123\\BreaKHis_FOLD_FEATURES_v1.npz",
+      "feature_output_sha256": "deaaf8efaf42c030a10f26623b2a3fc122f8475ca5cc40cdceb8c8da185531d6",
+      "provenance": "features\\BreaKHis\\pca_6d\\fold_02\\seed_123\\PCA_PROVENANCE.json",
+      "provenance_sha256": "19f5da9175582cc6e59829c0cc773770e151dd89256c1dc583b47f35d27d6706",
+      "explained_variance": 0.40659433603286743
+    },
+    {
+      "fold": 2,
+      "seed": 2025,
+      "train": 5449,
+      "validation": 1049,
+      "test": 1411,
+      "feature_output": "features\\BreaKHis\\pca_6d\\fold_02\\seed_2025\\BreaKHis_FOLD_FEATURES_v1.npz",
+      "feature_output_sha256": "deaaf8efaf42c030a10f26623b2a3fc122f8475ca5cc40cdceb8c8da185531d6",
+      "provenance": "features\\BreaKHis\\pca_6d\\fold_02\\seed_2025\\PCA_PROVENANCE.json",
+      "provenance_sha256": "852d3726be7cf8c70f10e1066e240036c9f69a78f9a5520bd0d39be2e31c39d7",
+      "explained_variance": 0.40659433603286743
+    },
+    {
+      "fold": 3,
+      "seed": 42,
+      "train": 4636,
+      "validation": 1532,
+      "test": 1741,
+      "feature_output": "features\\BreaKHis\\pca_6d\\fold_03\\seed_42\\BreaKHis_FOLD_FEATURES_v1.npz",
+      "feature_output_sha256": "0f9758631bbbcaa5c2da2e77c774e90396b5335190b405f8cd55bb9b705d9ea8",
+      "provenance": "features\\BreaKHis\\pca_6d\\fold_03\\seed_42\\PCA_PROVENANCE.json",
+      "provenance_sha256": "344dac10c2c087f917bd68a7550dea8758d9d90f2b6b2728f63861f31e14c04e",
+      "explained_variance": 0.4071817398071289
+    },
+    {
+      "fold": 3,
+      "seed": 123,
+      "train": 4636,
+      "validation": 1532,
+      "test": 1741,
+      "feature_output": "features\\BreaKHis\\pca_6d\\fold_03\\seed_123\\BreaKHis_FOLD_FEATURES_v1.npz",
+      "feature_output_sha256": "0f9758631bbbcaa5c2da2e77c774e90396b5335190b405f8cd55bb9b705d9ea8",
+      "provenance": "features\\BreaKHis\\pca_6d\\fold_03\\seed_123\\PCA_PROVENANCE.json",
+      "provenance_sha256": "b42a965e35ac6b170b3f95d63d1da8969f15b7ae9edd51c29bf093a1a9f0c4f1",
+      "explained_variance": 0.4071817398071289
+    },
+    {
+      "fold": 3,
+      "seed": 2025,
+      "train": 4636,
+      "validation": 1532,
+      "test": 1741,
+      "feature_output": "features\\BreaKHis\\pca_6d\\fold_03\\seed_2025\\BreaKHis_FOLD_FEATURES_v1.npz",
+      "feature_output_sha256": "0f9758631bbbcaa5c2da2e77c774e90396b5335190b405f8cd55bb9b705d9ea8",
+      "provenance": "features\\BreaKHis\\pca_6d\\fold_03\\seed_2025\\PCA_PROVENANCE.json",
+      "provenance_sha256": "4f3eee22aac4b22ed700ccc598c4e9c728b54377f42e77c71e7fe13cb2492900",
+      "explained_variance": 0.4071817398071289
+    },
+    {
+      "fold": 4,
+      "seed": 42,
+      "train": 4566,
+      "validation": 1706,
+      "test": 1637,
+      "feature_output": "features\\BreaKHis\\pca_6d\\fold_04\\seed_42\\BreaKHis_FOLD_FEATURES_v1.npz",
+      "feature_output_sha256": "ebf5f48af9e6ea1cbc731ab41203f31ae33c7a14a6d016828423893dba299be3",
+      "provenance": "features\\BreaKHis\\pca_6d\\fold_04\\seed_42\\PCA_PROVENANCE.json",
+      "provenance_sha256": "07a0fcb0c1012981bc9360536fcf67eeed21a714aca8765b1c549b3362a64956",
+      "explained_variance": 0.40906089544296265
+    },
+    {
+      "fold": 4,
+      "seed": 123,
+      "train": 4566,
+      "validation": 1706,
+      "test": 1637,
+      "feature_output": "features\\BreaKHis\\pca_6d\\fold_04\\seed_123\\BreaKHis_FOLD_FEATURES_v1.npz",
+      "feature_output_sha256": "ebf5f48af9e6ea1cbc731ab41203f31ae33c7a14a6d016828423893dba299be3",
+      "provenance": "features\\BreaKHis\\pca_6d\\fold_04\\seed_123\\PCA_PROVENANCE.json",
+      "provenance_sha256": "485171619b47f3dcddd39f82317cd16b4275a27d2990f13a572c4be8267f0059",
+      "explained_variance": 0.40906089544296265
+    },
+    {
+      "fold": 4,
+      "seed": 2025,
+      "train": 4566,
+      "validation": 1706,
+      "test": 1637,
+      "feature_output": "features\\BreaKHis\\pca_6d\\fold_04\\seed_2025\\BreaKHis_FOLD_FEATURES_v1.npz",
+      "feature_output_sha256": "ebf5f48af9e6ea1cbc731ab41203f31ae33c7a14a6d016828423893dba299be3",
+      "provenance": "features\\BreaKHis\\pca_6d\\fold_04\\seed_2025\\PCA_PROVENANCE.json",
+      "provenance_sha256": "5e05d0f8925318a25277a1ada0f6aa7ac29e337d85895c3116fe178466e46843",
+      "explained_variance": 0.40906089544296265
+    },
+    {
+      "fold": 5,
+      "seed": 42,
+      "train": 4785,
+      "validation": 1358,
+      "test": 1766,
+      "feature_output": "features\\BreaKHis\\pca_6d\\fold_05\\seed_42\\BreaKHis_FOLD_FEATURES_v1.npz",
+      "feature_output_sha256": "6fb9ac04e55e6cd06fc392065b14aebd1ff001dc8b9e281f3e9a7f769a2e3ff4",
+      "provenance": "features\\BreaKHis\\pca_6d\\fold_05\\seed_42\\PCA_PROVENANCE.json",
+      "provenance_sha256": "1b7859e893083f8a3343fad7deda9d977cc3e316b3dbafbc0d5043d52cab8194",
+      "explained_variance": 0.4100818336009979
+    },
+    {
+      "fold": 5,
+      "seed": 123,
+      "train": 4785,
+      "validation": 1358,
+      "test": 1766,
+      "feature_output": "features\\BreaKHis\\pca_6d\\fold_05\\seed_123\\BreaKHis_FOLD_FEATURES_v1.npz",
+      "feature_output_sha256": "6fb9ac04e55e6cd06fc392065b14aebd1ff001dc8b9e281f3e9a7f769a2e3ff4",
+      "provenance": "features\\BreaKHis\\pca_6d\\fold_05\\seed_123\\PCA_PROVENANCE.json",
+      "provenance_sha256": "2545ea1cedf963c535260df9e2e7f5c3ffca540e415c08d46158a26448739896",
+      "explained_variance": 0.4100818336009979
+    },
+    {
+      "fold": 5,
+      "seed": 2025,
+      "train": 4785,
+      "validation": 1358,
+      "test": 1766,
+      "feature_output": "features\\BreaKHis\\pca_6d\\fold_05\\seed_2025\\BreaKHis_FOLD_FEATURES_v1.npz",
+      "feature_output_sha256": "6fb9ac04e55e6cd06fc392065b14aebd1ff001dc8b9e281f3e9a7f769a2e3ff4",
+      "provenance": "features\\BreaKHis\\pca_6d\\fold_05\\seed_2025\\PCA_PROVENANCE.json",
+      "provenance_sha256": "6ed7da5c0743b188555c525cda3f55b8899bf3dedeca2861600d751aa30b2e11",
+      "explained_variance": 0.4100818336009979
+    }
+  ],
+  "run_count": 15,
+  "expected_run_count": 15,
+  "data_integrity": {
+    "frozen_manifests": true,
+    "new_random_split": false,
+    "source_dataset_modified": false,
+    "test_used_for_pca": false,
+    "validation_used_for_pca": false
+  },
+  "execution_separation": {
+    "asus_breakhis": "independent",
+    "kaggle_cbis_ddsm": "independent",
+    "historical_project": "reference_only"
+  },
+  "training": {
+    "performed": false
+  },
+  "git": {
+    "branch": "main",
+    "commit": "debbcf6f6c83cbcec3b54ccce827fe86fca35d9c"
+  },
+  "created_utc": "2026-08-29T13:07:16.999573+00:00"
+}
