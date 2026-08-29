@@ -1,0 +1,116 @@
+{
+  "step": "ASUS-15",
+  "status": "VERIFIED",
+  "dataset": "BreaKHis",
+  "dataset_root": "E:\\CBIS_DDSM_QUANTUM\\BreaKHis_v1\\BreaKHis_v1",
+  "physical_images": 7909,
+  "fold_count": 5,
+  "rows_per_fold": 7909,
+  "freeze_record": "manifests\\BreaKHis_FIVE_FOLD_FREEZE_v1.json",
+  "manifest_sha256": {
+    "BreaKHis_FOLD_01_VERIFIED_v1.csv": "4edbdcb4295610904ebf57bd011b758e389c8c9bf2f55d932d61073cc47d1058",
+    "BreaKHis_FOLD_02_VERIFIED_v1.csv": "66e763b32070347252a1fe2f0cfa35810d8cd5a479e980c0ea94ba6d8293992d",
+    "BreaKHis_FOLD_03_VERIFIED_v1.csv": "9f4aa057a7b4eb10557aba4af4e32f6fd7a96c740665568c8c2fe776f263f1c7",
+    "BreaKHis_FOLD_04_VERIFIED_v1.csv": "7f813fcd192bb9d1114f9e49635d4586745332a22245c322582420b4d7652f6f",
+    "BreaKHis_FOLD_05_VERIFIED_v1.csv": "67ecb6e947eb79d94370cb7a266b25952fa43de9b9d292bab573c01327d01e1c"
+  },
+  "manifest_summary": {
+    "fold_01": {
+      "rows": 7909,
+      "train": 5265,
+      "val": 1290,
+      "test": 1354,
+      "benign": 2480,
+      "malignant": 5429,
+      "unique_patients": 70,
+      "unique_cases": 82,
+      "duplicate_paths": 0
+    },
+    "fold_02": {
+      "rows": 7909,
+      "train": 5449,
+      "val": 1049,
+      "test": 1411,
+      "benign": 2480,
+      "malignant": 5429,
+      "unique_patients": 70,
+      "unique_cases": 82,
+      "duplicate_paths": 0
+    },
+    "fold_03": {
+      "rows": 7909,
+      "train": 4636,
+      "val": 1532,
+      "test": 1741,
+      "benign": 2480,
+      "malignant": 5429,
+      "unique_patients": 70,
+      "unique_cases": 82,
+      "duplicate_paths": 0
+    },
+    "fold_04": {
+      "rows": 7909,
+      "train": 4566,
+      "val": 1706,
+      "test": 1637,
+      "benign": 2480,
+      "malignant": 5429,
+      "unique_patients": 70,
+      "unique_cases": 82,
+      "duplicate_paths": 0
+    },
+    "fold_05": {
+      "rows": 7909,
+      "train": 4785,
+      "val": 1358,
+      "test": 1766,
+      "benign": 2480,
+      "malignant": 5429,
+      "unique_patients": 70,
+      "unique_cases": 82,
+      "duplicate_paths": 0
+    }
+  },
+  "loader": {
+    "class": "BreaKHisDataset",
+    "image_size": 224,
+    "channels": 3,
+    "dtype": "float32",
+    "value_range": [
+      0.0,
+      1.0
+    ],
+    "label_map": {
+      "benign": 0,
+      "malignant": 1
+    }
+  },
+  "split_integrity": {
+    "patient_disjoint": true,
+    "case_disjoint": true,
+    "new_random_split": false
+  },
+  "smoke_test": {
+    "sample_shape": [
+      3,
+      224,
+      224
+    ],
+    "batch_size": 8,
+    "batch_shape": [
+      8,
+      3,
+      224,
+      224
+    ],
+    "num_workers": 0
+  },
+  "seed_test": {
+    "seed": 20260829,
+    "deterministic_tensor_reproduction": true
+  },
+  "training_performed": false,
+  "dataset_modified": false,
+  "kaggle_touched": false,
+  "historical_project_used_for_execution": false
+}
