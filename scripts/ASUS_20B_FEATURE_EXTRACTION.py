@@ -212,6 +212,19 @@ for fold in range(1, 6):
 
     df = pd.read_csv(manifest)
 
+    # Frozen manifests store labels as text. Convert once to the
+    # locked binary representation required by the experiment.
+    df["label_numeric"] = df["label"].map({
+        "benign": 0,
+        "malignant": 1,
+    })
+
+    assert df["label_numeric"].notna().all(), (
+        f"Unexpected label value in fold {fold:02d}"
+    )
+
+    assert set(df["label_numeric"].unique()) == {0, 1}
+
     assert len(df) == 7909
 
     assert set(df["split"].unique()) == {
@@ -842,7 +855,7 @@ for fold in range(1, 6):
             val_label=np.array(
                 df.loc[
                     val_mask,
-                    "label"
+                    "label_numeric"
                 ],
                 dtype=np.int64
             ),
@@ -873,7 +886,7 @@ for fold in range(1, 6):
             test_label=np.array(
                 df.loc[
                     test_mask,
-                    "label"
+                    "label_numeric"
                 ],
                 dtype=np.int64
             ),
