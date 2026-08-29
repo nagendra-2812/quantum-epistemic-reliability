@@ -1,0 +1,48 @@
+{
+  "step": "ASUS-16",
+  "status": "VERIFIED",
+  "run": {
+    "run_id": "asus16_breakhis_seed20260829_20260829T115326Z",
+    "timestamp_utc": "2026-08-29T11:53:26.931077+00:00",
+    "dataset": "BreaKHis",
+    "backend": "local_ASUS_RTX_5060",
+    "seed": 20260829,
+    "fold": null
+  },
+  "git": {
+    "branch": "main",
+    "commit": "2c8b11f22e545257a23130931676c750b2e19bc4",
+    "working_tree_clean": true
+  },
+  "artifacts": {
+    "execution_contract": "configs\\ASUS_12_EXECUTION_CONTRACT_v1.json",
+    "execution_contract_sha256": "557f8c2876b5c7636f10ce614f301858b3b3e980adebe181ae2db1e75ec7a1e4",
+    "freeze_record": "manifests\\BreaKHis_FIVE_FOLD_FREEZE_v1.json",
+    "freeze_record_sha256": "69468958b3ea7aba2a92d54439b81e083ba5560aa9294908fb017261708de35f",
+    "environment_lock": "metadata\\ASUS-14_ENVIRONMENT_LOCK_v1.json",
+    "environment_lock_sha256": "5ad90427d87873cbf5c7a5a8ab9968a9f935d98b215c806131b69caef576d3e9"
+  },
+  "determinism": {
+    "pythonhashseed": "20260829",
+    "python_random": true,
+    "numpy_random": true,
+    "torch_random": true,
+    "cuda_random": true,
+    "cudnn_deterministic": true,
+    "cudnn_benchmark": false,
+    "deterministic_algorithms": true,
+    "cpu_reproducibility_test": true,
+    "cuda_reproducibility_test": true
+  },
+  "execution_separation": {
+    "historical_project_execution": false,
+    "kaggle_cbisd_dsm_execution": "independent",
+    "cross_dataset_analysis": "not_started"
+  },
+  "training": {
+    "performed": false
+  },
+  "data": {
+    "modified": false
+  }
+}
