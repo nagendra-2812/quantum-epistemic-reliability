@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import hashlib
 import json
@@ -35,15 +35,16 @@ import pennylane as qml
 #     Validate the frozen ASUS-21 implementation before the
 #     automatic full experiment.
 #
-# Experimental arms:
+# Executable arms:
 #     1. softmax
 #     2. temperature_scaled
 #     3. mc_dropout
 #     4. deep_ensemble
 #     5. deterministic_vqc
-#     6. laplace_vqc
-#     7. laplace_mlp
-
+#
+# Laplace arms are NOT fabricated. They remain explicitly blocked
+# because ASUS-21 does not define their mathematical perturbation
+# procedure.
 #
 # ================================================================
 
@@ -451,7 +452,7 @@ class MCDropoutModel(nn.Module):
 #
 # Trainable quantum parameters:
 #
-#     2 layers × 6 qubits × 2 rotations
+#     2 layers Ã— 6 qubits Ã— 2 rotations
 #     = 24
 #
 # The classical readout has seven additional parameters.
@@ -1090,216 +1091,6 @@ def predict_mc_dropout(
     )
 
 
-
-
-# ================================================================
-# ASUS-21 LAPLACE IMPLEMENTATION
-# ================================================================
-# Protocol implemented from the project specification:
-#   F_j = mean_i[(d L_i / d theta_j)^2]
-#   lambda = 1e-4 * mean(F)
-#   Sigma = alpha^2 * diag(F + lambda)^(-1)
-#   alpha in {0.25, 0.50, 1.00, 2.00}, selected by validation NLL
-#   30 posterior samples
-#
-# Laplace-VQC: perturb the 24 quantum parameters theta only;
-#              keep the 7-parameter classical readout fixed.
-# Laplace-MLP: perturb all 25 trainable parameters.
-# ================================================================
-
-LAPLACE_ALPHA_GRID = (0.25, 0.50, 1.00, 2.00)
-LAPLACE_POSTERIOR_SAMPLES = 30
-LAPLACE_DAMPING_FACTOR = 1.0e-4
-
-
-def _laplace_parameters(model, vqc=False):
-    if vqc:
-        return [model.theta]
-    return [p for p in model.parameters() if p.requires_grad]
-
-
-def _laplace_parameter_count(model, vqc=False):
-    return sum(p.numel() for p in _laplace_parameters(model, vqc))
-
-
-def _laplace_flatten(model, vqc=False, device=None):
-    parameters = _laplace_parameters(model, vqc)
-    if device is None:
-        device = parameters[0].device
-    return torch.cat([
-        p.detach().to(device=device, dtype=torch.float64).reshape(-1)
-        for p in parameters
-    ])
-
-
-def _laplace_restore(model, flat, vqc=False):
-    offset = 0
-    with torch.no_grad():
-        for p in _laplace_parameters(model, vqc):
-            n = p.numel()
-            p.copy_(flat[offset:offset+n].reshape(p.shape).to(device=p.device, dtype=p.dtype))
-            offset += n
-
-
-def _laplace_empirical_fisher(model, X, y, vqc=False):
-    device = VQC_DEVICE if vqc else CLASSICAL_DEVICE
-    dtype = torch.float64 if vqc else torch.float32
-    X_tensor = torch.tensor(X, dtype=dtype, device=device)
-    y_tensor = torch.tensor(y, dtype=torch.float32, device=device)
-    parameters = _laplace_parameters(model, vqc)
-    fisher = torch.zeros(sum(p.numel() for p in parameters), dtype=torch.float64, device=device)
-    criterion = nn.BCEWithLogitsLoss()
-    model.eval()
-
-    total = len(X_tensor)
-    for i in range(total):
-        model.zero_grad(set_to_none=True)
-        logits = model(X_tensor[i:i+1])
-        loss = criterion(logits.reshape(-1), y_tensor[i:i+1].reshape(-1))
-        grads = torch.autograd.grad(loss, parameters, retain_graph=False, create_graph=False, allow_unused=False)
-        flat_grad = torch.cat([g.detach().to(torch.float64).reshape(-1) for g in grads])
-        fisher += flat_grad.square()
-        if (i + 1) % 250 == 0 or i + 1 == total:
-            print(f"    empirical Fisher {i + 1}/{total}")
-
-    fisher /= float(total)
-    return fisher
-
-
-def _laplace_nll(y_true, probability):
-    y_true = np.asarray(y_true, dtype=np.float64)
-    probability = np.clip(np.asarray(probability, dtype=np.float64), 1e-7, 1.0 - 1e-7)
-    return float(-np.mean(y_true*np.log(probability) + (1.0-y_true)*np.log(1.0-probability)))
-
-
-def _laplace_sample_parameters(mean, fisher, alpha, damping, generator):
-    noise = torch.randn(mean.shape, dtype=torch.float64, device=mean.device, generator=generator)
-    std = float(alpha) / torch.sqrt(fisher + float(damping))
-    return mean + noise * std
-
-
-def _laplace_predict_single(model, X, mean, fisher, alpha, damping, generator, vqc=False):
-    sampled = _laplace_sample_parameters(mean, fisher, alpha, damping, generator)
-    _laplace_restore(model, sampled, vqc=vqc)
-    probability = predict_vqc(model, X) if vqc else predict_classical(model, X)
-    _laplace_restore(model, mean, vqc=vqc)
-    return probability
-
-
-def _laplace_predictive_samples(model, X, mean, fisher, alpha, damping, generator, vqc=False):
-    samples = []
-    for _ in range(LAPLACE_POSTERIOR_SAMPLES):
-        samples.append(_laplace_predict_single(model, X, mean, fisher, alpha, damping, generator, vqc=vqc))
-    return np.stack(samples, axis=0)
-
-
-def _laplace_select_alpha(model, X_val, y_val, mean, fisher, damping, seed, vqc=False):
-    device = VQC_DEVICE if vqc else CLASSICAL_DEVICE
-    generator = torch.Generator(device=device)
-    generator.manual_seed(int(seed) + (41000 if vqc else 42000))
-    scores = {}
-
-    for alpha in LAPLACE_ALPHA_GRID:
-        val_samples = _laplace_predictive_samples(
-            model, X_val, mean, fisher, alpha, damping, generator, vqc=vqc
-        )
-        mean_probability = val_samples.mean(axis=0)
-        score = _laplace_nll(y_val, mean_probability)
-        scores[float(alpha)] = float(score)
-        print(f"    alpha={alpha:.2f} | validation NLL={score:.8f}")
-
-    selected = min(scores, key=scores.get)
-    return float(selected), scores
-
-
-def _run_laplace_arm(model, arm_name, X_train, y_train, X_val, y_val, X_test, y_test,
-                     epochs, batch_size, learning_rate, weight_decay, seed, vqc=False):
-    print()
-    print("=" * 100)
-    print(f"ARM — {arm_name.upper()}")
-    print("=" * 100)
-
-    set_seed(seed)
-    if vqc:
-        model, training_info = train_vqc_model(model, X_train, y_train, X_val, y_val,
-                                               epochs, batch_size, learning_rate, weight_decay)
-    else:
-        model, training_info = train_classical_model(model, X_train, y_train, X_val, y_val,
-                                                     epochs, batch_size, learning_rate, weight_decay)
-
-    laplace_count = _laplace_parameter_count(model, vqc=vqc)
-    expected = 24 if vqc else 25
-    if laplace_count != expected:
-        raise RuntimeError(f"{arm_name}: expected {expected} Laplace parameters, got {laplace_count}.")
-
-    print("Laplace parameters:", laplace_count)
-    print("Estimating diagonal empirical Fisher from training data only...")
-    fisher = _laplace_empirical_fisher(model, X_train, y_train, vqc=vqc)
-    mean_fisher = max(float(fisher.mean().detach().cpu().item()), 1e-12)
-    damping = LAPLACE_DAMPING_FACTOR * mean_fisher
-
-    device = VQC_DEVICE if vqc else CLASSICAL_DEVICE
-    mean = _laplace_flatten(model, vqc=vqc, device=device)
-    fisher = fisher.to(device=device, dtype=torch.float64)
-
-    selected_alpha, alpha_scores = _laplace_select_alpha(
-        model, X_val, y_val, mean, fisher, damping, seed, vqc=vqc
-    )
-    print("Selected alpha:", selected_alpha)
-
-    generator = torch.Generator(device=device)
-    generator.manual_seed(int(seed) + (51000 if vqc else 52000))
-    test_samples = _laplace_predictive_samples(
-        model, X_test, mean, fisher, selected_alpha, damping, generator, vqc=vqc
-    )
-    probability = test_samples.mean(axis=0)
-    uncertainty = test_samples.var(axis=0, ddof=0)
-    metrics = compute_metrics(y_test, probability, uncertainty)
-
-    result = {
-        "arm": arm_name,
-        "status": "EXECUTED",
-        "laplace_trainable_parameters": laplace_count,
-        "training": training_info,
-        "laplace": {
-            "fisher": "diagonal empirical Fisher",
-            "fisher_estimation": "per-sample squared training-loss gradients",
-            "fisher_split": "training only",
-            "damping_formula": "1e-4 * mean(F)",
-            "damping": float(damping),
-            "alpha_grid": list(LAPLACE_ALPHA_GRID),
-            "selected_alpha": float(selected_alpha),
-            "validation_nll": {str(k): float(v) for k, v in alpha_scores.items()},
-            "posterior_samples": LAPLACE_POSTERIOR_SAMPLES,
-            "covariance": "alpha^2 * diag(F + lambda)^(-1)",
-            "uncertainty": "posterior predictive variance",
-            "parameter_scope": "quantum theta only" if vqc else "all trainable MLP parameters",
-        },
-        "metrics": metrics,
-    }
-
-    print("Posterior samples:", LAPLACE_POSTERIOR_SAMPLES)
-    print("Test AURC:", metrics["AURC"])
-    return result
-
-
-class LaplaceMLP(nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.network = nn.Sequential(
-            nn.Linear(6, 3),
-            nn.Tanh(),
-            nn.Linear(3, 1),
-        )
-
-    def forward(self, x):
-        if x.ndim != 2:
-            raise ValueError(f"Expected input shape (batch, 6), got {tuple(x.shape)}")
-        if x.shape[1] != 6:
-            raise ValueError(f"Expected exactly 6 input features, got {x.shape[1]}")
-        return self.network(x).squeeze(-1)
-
-
 # ================================================================
 # Main
 # ================================================================
@@ -1308,7 +1099,7 @@ def main():
 
     print("=" * 100)
     print(
-        "ASUS-21 — PILOT EXECUTION"
+        "ASUS-21 â€” PILOT EXECUTION"
     )
     print("=" * 100)
 
@@ -1610,7 +1401,7 @@ def main():
     print()
     print("=" * 100)
     print(
-        "ARM 1/7 — SOFTMAX"
+        "ARM 1/7 â€” SOFTMAX"
     )
     print("=" * 100)
 
@@ -1701,7 +1492,7 @@ def main():
     print()
     print("=" * 100)
     print(
-        "ARM 2/7 — TEMPERATURE SCALED"
+        "ARM 2/7 â€” TEMPERATURE SCALED"
     )
     print("=" * 100)
 
@@ -1862,7 +1653,7 @@ def main():
     print()
     print("=" * 100)
     print(
-        "ARM 3/7 — MC DROPOUT"
+        "ARM 3/7 â€” MC DROPOUT"
     )
     print("=" * 100)
 
@@ -1965,7 +1756,7 @@ def main():
     print()
     print("=" * 100)
     print(
-        "ARM 4/7 — DEEP ENSEMBLE"
+        "ARM 4/7 â€” DEEP ENSEMBLE"
     )
     print("=" * 100)
 
@@ -2093,7 +1884,7 @@ def main():
     print()
     print("=" * 100)
     print(
-        "ARM 5/7 — DETERMINISTIC VQC"
+        "ARM 5/7 â€” DETERMINISTIC VQC"
     )
     print("=" * 100)
 
@@ -2207,50 +1998,45 @@ def main():
     )
 
     # ============================================================
-    # 6. LAPLACE VQC
+    # 6â€“7. LAPLACE ARMS
     # ============================================================
 
-    laplace_vqc_result = _run_laplace_arm(
-        model=DeterministicVQC(),
-        arm_name="laplace_vqc",
-        X_train=X_train,
-        y_train=y_train,
-        X_val=X_val,
-        y_val=y_val,
-        X_test=X_test,
-        y_test=y_test,
-        epochs=epochs,
-        batch_size=batch_size,
-        learning_rate=learning_rate,
-        weight_decay=weight_decay,
-        seed=PILOT_SEED,
-        vqc=True,
+    print()
+    print("=" * 100)
+    print(
+        "ARMS 6â€“7 â€” LAPLACE GATE"
+    )
+    print("=" * 100)
+
+    blocked_reason = (
+        "ASUS-21 identifies the Laplace arms "
+        "but does not specify the mathematical "
+        "Laplace perturbation procedure, "
+        "covariance construction, damping, "
+        "or perturbation scale. No undocumented "
+        "method is invented."
     )
 
-    results.append(laplace_vqc_result)
+    for arm_name in [
+        "laplace_vqc",
+        "laplace_mlp",
+    ]:
 
-    # ============================================================
-    # 7. LAPLACE MLP
-    # ============================================================
+        print(
+            f"BLOCKED: {arm_name}"
+        )
 
-    laplace_mlp_result = _run_laplace_arm(
-        model=LaplaceMLP(),
-        arm_name="laplace_mlp",
-        X_train=X_train,
-        y_train=y_train,
-        X_val=X_val,
-        y_val=y_val,
-        X_test=X_test,
-        y_test=y_test,
-        epochs=epochs,
-        batch_size=batch_size,
-        learning_rate=learning_rate,
-        weight_decay=weight_decay,
-        seed=PILOT_SEED,
-        vqc=False,
-    )
+        results.append({
 
-    results.append(laplace_mlp_result)
+            "arm":
+                arm_name,
+
+            "status":
+                "BLOCKED",
+
+            "reason":
+                blocked_reason,
+        })
 
     # ============================================================
     # Save results
@@ -2306,11 +2092,12 @@ def main():
             "mc_dropout",
             "deep_ensemble",
             "deterministic_vqc",
+        ],
+
+        "blocked_arms": [
             "laplace_vqc",
             "laplace_mlp",
         ],
-
-        "blocked_arms": [],
 
         "results":
             results,
@@ -2339,7 +2126,7 @@ def main():
             "ASUS-21",
 
         "status":
-            "PILOT_COMPLETED_ALL_7_ARMS",
+            "PILOT_COMPLETED_WITH_LAPLACE_GATE",
 
         "project":
             "quantum-epistemic-reliability",
@@ -2403,11 +2190,12 @@ def main():
             "mc_dropout",
             "deep_ensemble",
             "deterministic_vqc",
+        ],
+
+        "blocked_arms": [
             "laplace_vqc",
             "laplace_mlp",
         ],
-
-        "blocked_arms": [],
 
         "results_file":
             str(
@@ -2422,7 +2210,7 @@ def main():
             ),
 
         "full_experiment_allowed":
-            True,
+            False,
 
         "created_utc":
             datetime.now(
@@ -2455,11 +2243,11 @@ def main():
     print("=" * 100)
 
     print(
-        "Executed arms: 7"
+        "Executed arms: 5"
     )
 
     print(
-        "Blocked arms: 0"
+        "Blocked arms: 2"
     )
 
     print()
@@ -2475,11 +2263,15 @@ def main():
 
     print()
     print(
-        "FULL EXPERIMENT ALLOWED: TRUE"
+        "FULL EXPERIMENT ALLOWED: FALSE"
     )
 
     print(
-        "All seven ASUS-21 experimental arms completed."
+        "The five executable arms completed."
+    )
+
+    print(
+        "The two Laplace arms remain methodologically gated."
     )
 
     print("=" * 100)

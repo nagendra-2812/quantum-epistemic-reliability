@@ -1,0 +1,44 @@
+{
+  "step": "ASUS-21",
+  "status": "PILOT_COMPLETED_ALL_7_ARMS",
+  "project": "quantum-epistemic-reliability",
+  "dataset": "BreaKHis",
+  "fold": 1,
+  "seed": 42,
+  "configuration_sha256": "68d9e3dc912a3a21df121c339efdb5fcfb745f8b6f81fa5998f74c8cab40fc35",
+  "input_feature_sha256": "d2486e25b00328e4116ea3348973967df1b43d840e4d90b3281c1f3b1381c57b",
+  "train_shape": [
+    5265,
+    6
+  ],
+  "validation_shape": [
+    1290,
+    6
+  ],
+  "test_shape": [
+    1354,
+    6
+  ],
+  "training": {
+    "epochs": 30,
+    "batch_size": 32,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "selection_metric": "validation ROC-AUC",
+    "test_used_for_selection": false
+  },
+  "executed_arms": [
+    "softmax",
+    "temperature_scaled",
+    "mc_dropout",
+    "deep_ensemble",
+    "deterministic_vqc",
+    "laplace_vqc",
+    "laplace_mlp"
+  ],
+  "blocked_arms": [],
+  "results_file": "features\\BreaKHis\\asus_21_pilot\\PILOT_RESULTS.json",
+  "results_sha256": "3037c15a02975f86cb692895e0ad1d010651bed679b739049ddd0dc29d1fb94a",
+  "full_experiment_allowed": true,
+  "created_utc": "2026-08-29T18:57:26.436533+00:00"
+}
